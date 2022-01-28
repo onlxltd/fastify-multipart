@@ -7,7 +7,7 @@ const eos = require('end-of-stream')
 const { createWriteStream } = require('fs')
 const { unlink } = require('fs').promises
 const path = require('path')
-const hexoid = require('hexoid')
+const { v4 } = require('uuid')
 const util = require('util')
 const createError = require('fastify-error')
 const sendToWormhole = require('stream-wormhole')
@@ -195,7 +195,7 @@ function fastifyMultipart (fastify, options, done) {
     await request.cleanRequestFiles()
   })
 
-  const toID = hexoid()
+  const toID = v4().split('-').join('')
 
   function isMultipart () {
     return this.raw[kMultipart] || false
